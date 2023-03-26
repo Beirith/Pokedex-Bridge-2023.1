@@ -4,7 +4,6 @@ import java.util.Random;
 
 public class GeraDadosPokemon {
 
-    private int raridade;
     private String vantagemGerada;
     private String desvantagemGerada;
 

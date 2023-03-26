@@ -3,7 +3,7 @@ package pokemon;
 // Esta é a classe que contém os dados do Pokémon.
 // Os atributos da classe são as características do Pokémon.
 // A classe possui um método (dadosPokemon) que exibe as
-// características do Pokémon, bem como os getters e setters.
+// características do Pokémon, e também possui getters e setters.
 
 public class Pokemon {
 

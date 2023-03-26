@@ -1,6 +1,6 @@
 package pokemon;
 
-import menus.CadastroPokemon;
+import calculos.CadastroPokemon;
 import java.util.Scanner;
 
 public class CriarPokemon {

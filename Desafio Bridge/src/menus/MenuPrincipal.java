@@ -1,5 +1,7 @@
 package menus;
 
+import calculos.CadastroPokemon;
+import calculos.CalculoPokemonMediano;
 import pokemon.CriarPokemon;
 import pokemon.GeraDadosPokemon;
 import pokemon.Pokemon;
@@ -15,9 +17,43 @@ public class MenuPrincipal {
     private GeraDadosPokemon gerarDados = new GeraDadosPokemon();
     private CadastroPokemon cadastrosPokemons = new CadastroPokemon();
     private CriarPokemon criadorDePokemon = new CriarPokemon();
+    private CalculoPokemonMediano calculaMediano = new CalculoPokemonMediano();
     private Scanner scan = new Scanner(System.in);
 
-    public void inicializarMenu() {
+    public void testes() {
+        Pokemon poke1 = new Pokemon();
+        poke1.setNome("A");
+        poke1.setRaridade(-5);
+
+        Pokemon poke2 = new Pokemon();
+        poke2.setNome("B");
+        poke2.setRaridade(5);
+
+        Pokemon poke3 = new Pokemon();
+        poke3.setNome("C");
+        poke3.setRaridade(-1);
+
+        Pokemon poke4 = new Pokemon();
+        poke4.setNome("E");
+        poke4.setRaridade(-1);
+
+        Pokemon poke5 = new Pokemon();
+        poke5.setNome("E");
+        poke5.setRaridade(-1);
+
+        Pokemon poke6 = new Pokemon();
+        poke6.setNome("F");
+        poke6.setRaridade(-1);
+
+        cadastrosPokemons.adiconarPokemonsArray(poke1);
+        cadastrosPokemons.adiconarPokemonsArray(poke2);
+        cadastrosPokemons.adiconarPokemonsArray(poke3);
+        cadastrosPokemons.adiconarPokemonsArray(poke4);
+        cadastrosPokemons.adiconarPokemonsArray(poke5);
+        cadastrosPokemons.adiconarPokemonsArray(poke6);
+    }
+
+    public void menuInicial() {
         while (rodar) {
             String nomeTreinadorEntrada;
             int entrada;
@@ -96,7 +132,8 @@ public class MenuPrincipal {
                     break;
 
                 case 3:
-                    assert true;
+                    calculaMediano.calcularPokemonMaisMediano(scan, cadastrosPokemons.retornaListaPokemons());
+                    break;
 
                 default:
                     System.out.println("\nOpção inválida! Por favor, tente novamente.\n");
