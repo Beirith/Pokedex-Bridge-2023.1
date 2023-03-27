@@ -3,6 +3,7 @@ package menus;
 import calculos.BuscaVantagemPokemon;
 import calculos.CadastroPokemon;
 import calculos.CalculoPokemonMediano;
+import calculos.OrganizaEquipes;
 import pokemon.CriarPokemon;
 import pokemon.GeraDadosPokemon;
 import pokemon.Pokemon;
@@ -16,12 +17,13 @@ public class MenuPrincipal {
     private boolean rodar = true;
     private String nomeTreinador;
 
-    private GeraDadosPokemon gerarDados = new GeraDadosPokemon();
-    private CadastroPokemon cadastrosPokemons = new CadastroPokemon();
-    private CriarPokemon criadorDePokemon = new CriarPokemon();
-    private CalculoPokemonMediano calculaMediano = new CalculoPokemonMediano();
-    private BuscaVantagemPokemon buscaVantagem = new BuscaVantagemPokemon();
-    private Scanner scan = new Scanner(System.in);
+    private final GeraDadosPokemon gerarDados = new GeraDadosPokemon();
+    private final CadastroPokemon cadastrosPokemons = new CadastroPokemon();
+    private final CriarPokemon criadorDePokemon = new CriarPokemon();
+    private final CalculoPokemonMediano calculaMediano = new CalculoPokemonMediano();
+    private final BuscaVantagemPokemon buscaVantagem = new BuscaVantagemPokemon();
+    private final OrganizaEquipes organizarEquipes = new OrganizaEquipes();
+    private final Scanner scan = new Scanner(System.in);
 
     public void testes() {
         Pokemon poke1 = new Pokemon();
@@ -105,7 +107,8 @@ public class MenuPrincipal {
                     break;
 
                 case 3:
-                    assert true;
+                    menuCampeonato();
+                    break;
 
                 default:
                     System.out.println("\nOpção inválida! Por favor, tente novamente.\n");
@@ -137,8 +140,12 @@ public class MenuPrincipal {
                 case 0 -> rodarVisualizar = false;
                 case 1 -> cadastrosPokemons.listarPokemons();
                 case 2 -> cadastrosPokemons.visualizarDadosPokemon(scan);
-                case 3 -> calculaMediano.calcularPokemonMaisMediano(scan, cadastrosPokemons.retornaListaPokemons());
-                case 4 -> buscaVantagem.buscarPokemon(scan, cadastrosPokemons.retornaListaPokemons(), cadastrosPokemons);
+                case 3 -> {
+                    calculaMediano.calcularPokemonMaisMediano(scan, cadastrosPokemons.retornaListaPokemons());
+                }
+                case 4 -> {
+                    buscaVantagem.buscarPokemon(scan, cadastrosPokemons.retornaListaPokemons(), cadastrosPokemons);
+                }
 
                 default -> System.out.println("\nOpção inválida! Por favor, tente novamente.\n");
             }
@@ -147,7 +154,6 @@ public class MenuPrincipal {
 
     public void menuCadastro() {
         boolean rodarCadastro = true;
-
         while (rodarCadastro) {
             int entrada2;
             System.out.println("============= Cadastrar Pokémons =============");
@@ -162,12 +168,39 @@ public class MenuPrincipal {
                 case 0 -> rodarCadastro = false;
                 case 1 -> {
                     criarPokemon();
-                    rodarCadastro = false;
                 }
                 case 2 -> {
-                    cadastrosPokemons.removerPokemon(scan);
-                    rodarCadastro = false;
+                    cadastrosPokemons.removerPokemon(scan, organizarEquipes);
                 }
+                default -> System.out.println("\nOpção inválida! Por favor, tente novamente.\n");
+            }
+        }
+    }
+
+    public void menuCampeonato() {
+        boolean rodarCampeonato = true;
+        while (rodarCampeonato) {
+            int entrada;
+            System.out.println("============= Campeonato Pokémon =============");
+            System.out.println("1 - Iniciar campeonato");
+            System.out.println("2 - Adicionar Pokémon as equipes");
+            System.out.println("3 - Remover Pokémon das equipes");
+            System.out.println("0 - Voltar");
+            System.out.println("==============================================");
+            System.out.println("Selecione uma opção: ");
+
+            try {
+                entrada = scan.nextInt();
+            } catch (InputMismatchException e) {
+                scan.nextLine();
+                entrada = -1;
+            }
+
+            switch (entrada) {
+                case 0 -> rodarCampeonato = false;
+                //case 1 ->
+                case 2 -> organizarEquipes.selecionarPokemon(scan, cadastrosPokemons.retornaListaPokemons(), cadastrosPokemons);
+                case 3 -> organizarEquipes.removerPokemon(scan);
                 default -> System.out.println("\nOpção inválida! Por favor, tente novamente.\n");
             }
         }

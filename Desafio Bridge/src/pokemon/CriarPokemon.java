@@ -13,7 +13,7 @@ public class CriarPokemon {
         System.out.println("Digite o nome do Pokémon: ");
         nomePokemon = scan.next();
 
-        while (!cadastrosPokemons.checaNomeDisponivel(nomePokemon)) {
+        while (!cadastrosPokemons.checaNomeDisponivel(nomePokemon, cadastrosPokemons.retornaListaPokemons())) {
             System.out.println("Nome indisponível! Por favor, tente novamente: ");
             nomePokemon = scan.next();
         }

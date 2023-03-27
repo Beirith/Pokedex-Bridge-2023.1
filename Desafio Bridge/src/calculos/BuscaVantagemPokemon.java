@@ -24,7 +24,7 @@ public class BuscaVantagemPokemon {
             String nomePokemon;
             nomePokemon = scan.next();
 
-            if (cadastrosPokemons.checaNomeDisponivel(nomePokemon)) {
+            if (cadastrosPokemons.checaNomeDisponivel(nomePokemon, cadastrosPokemons.retornaListaPokemons())) {
                 System.out.println("\nO Pokémon " + nomePokemon + " não está na lista de Pokémons conhecidos!\n");
                 System.out.println("Verifique se o nome foi digitado corretamente e tente novamente!\n");
             }

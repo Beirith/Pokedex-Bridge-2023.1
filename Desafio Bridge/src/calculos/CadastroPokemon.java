@@ -9,7 +9,7 @@ public class CadastroPokemon {
 
     private ArrayList<Pokemon> listaDePokemons = new ArrayList<>();
 
-    public ArrayList retornaListaPokemons() {
+    public ArrayList<Pokemon> retornaListaPokemons() {
         return listaDePokemons;
     }
 
@@ -30,7 +30,7 @@ public class CadastroPokemon {
         }
     }
 
-    public void removerPokemon(Scanner scan) {
+    public void removerPokemon(Scanner scan, OrganizaEquipes organizarEquipes) {
         if (listaDePokemons.size() == 0) {
             System.out.println("Não há nenhum Pokémon para ser removido!");
             System.out.println("A lista de Pokémons conhecidos está vazia!");
@@ -47,6 +47,7 @@ public class CadastroPokemon {
                 if (Objects.equals(nomePokemon, pokemon.getNome())) {
                     System.out.println("\nO Pokémon " + nomePokemon + " foi removido da lista de Pokémons conhecidos!\n");
                     listaDePokemons.remove(i);
+                    organizarEquipes.remocaoCadastro(pokemon);
                     break;
 
                 } else if (i == listaDePokemons.size() - 1) {
@@ -60,7 +61,7 @@ public class CadastroPokemon {
         return !Objects.equals(nomes, "");
     }
 
-    public boolean checaNomeDisponivel(String nomePokemon) {
+    public boolean checaNomeDisponivel(String nomePokemon, ArrayList<Pokemon> listaDePokemons) {
         for (Pokemon pokemon : listaDePokemons) {
             if (Objects.equals(nomePokemon, pokemon.getNome())) {
                 return false;
@@ -79,13 +80,12 @@ public class CadastroPokemon {
             System.out.println("Digite o nome do Pokémon: ");
             nomePokemon = scan.next();
 
-            if (checaNomeDisponivel(nomePokemon)) {
+            if (checaNomeDisponivel(nomePokemon, listaDePokemons)) {
                 System.out.println("\nO Pokémon " + nomePokemon + " não está na lista de Pokémons conhecidos!\n");
                 System.out.println("Verifique se o nome foi digitado corretamente e tente novamente!\n");
             }
             else {
-                for (int i = 0; i < listaDePokemons.size(); i++) {
-                    Pokemon pokemon = listaDePokemons.get(i);
+                for (Pokemon pokemon : listaDePokemons) {
                     if (Objects.equals(nomePokemon, pokemon.getNome())) {
                         pokemon.dadosPokemon();
                         break;
@@ -94,7 +94,7 @@ public class CadastroPokemon {
             }
         }
     }
-
+    
     public boolean buscaPokemon(Scanner scan, ArrayList<Pokemon> listaDePokemons, CadastroPokemon cadastrosPokemons) {
         if (listaDePokemons.size() == 0) {
             System.out.println("Não há nenhum Pokémon para ser visualizado!");
@@ -106,7 +106,7 @@ public class CadastroPokemon {
             String nomePokemon;
             nomePokemon = scan.next();
 
-            if (cadastrosPokemons.checaNomeDisponivel(nomePokemon)) {
+            if (cadastrosPokemons.checaNomeDisponivel(nomePokemon, listaDePokemons)) {
                 System.out.println("\nO Pokémon " + nomePokemon + " não está na lista de Pokémons conhecidos!\n");
                 System.out.println("Verifique se o nome foi digitado corretamente e tente novamente!\n");
                 return false;
