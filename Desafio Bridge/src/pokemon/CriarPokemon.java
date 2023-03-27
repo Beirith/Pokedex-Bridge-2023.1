@@ -5,44 +5,26 @@ import java.util.Scanner;
 
 public class CriarPokemon {
 
-    private boolean rodarCriacao = true;
     private boolean rodarTipo = true;
 
-    public void iniciarCriacao(Pokemon novoPokemon, GeraDadosPokemon gerarDados) {
-        int raridadeGerada;
-        String vantagemGerada;
-        String desvantagemGerada;
-
-        raridadeGerada = gerarDados.geraRaridade();
-        vantagemGerada = gerarDados.geraVatangem();
-        desvantagemGerada = gerarDados.geraDesvantagem();
-
-        novoPokemon.setRaridade(raridadeGerada);
-        novoPokemon.setVantagem(vantagemGerada);
-        novoPokemon.setDesvantagem(desvantagemGerada);
-    }
-
     public void selecionarNome(Pokemon novoPokemon, Scanner scan, CadastroPokemon cadastrosPokemons) {
-        while (rodarCriacao) {
-            String nomePokemon;
+        String nomePokemon;
 
-            System.out.println("Digite o nome do Pokémon: ");
+        System.out.println("Digite o nome do Pokémon: ");
+        nomePokemon = scan.next();
+
+        while (!cadastrosPokemons.checaNomeDisponivel(nomePokemon)) {
+            System.out.println("Nome indisponível! Por favor, tente novamente: ");
             nomePokemon = scan.next();
-
-            while (!cadastrosPokemons.checaNomeDisponivel(nomePokemon)) {
-                System.out.println("Nome indisponível! Por favor, tente novamente: ");
-                nomePokemon = scan.next();
-            }
-
-            while (!cadastrosPokemons.checaNomeValido(nomePokemon)) {
-                System.out.println("Nome inválido! Por favor, tente novamente: ");
-                nomePokemon = scan.next();
-            }
-
-            novoPokemon.setNome(nomePokemon);
-            break;
         }
-        rodarCriacao = true;
+
+        while (!cadastrosPokemons.checaNomeValido(nomePokemon)) {
+            System.out.println("Nome inválido! Por favor, tente novamente: ");
+            nomePokemon = scan.next();
+        }
+
+        novoPokemon.setNome(nomePokemon);
+
     }
 
     public void selecionarTipo(Pokemon novoPokemon, Scanner scan, CadastroPokemon cadastrosPokemons) {
@@ -58,40 +40,47 @@ public class CriarPokemon {
             System.out.println("7 - Lutador");
             selecionaTipo = scan.nextInt();
 
-            switch(selecionaTipo) {
-                case 1:
+            switch (selecionaTipo) {
+                case 1 -> {
                     novoPokemon.setTipo("Normal");
                     rodarTipo = false;
-                    break;
-                case 2:
+                }
+                case 2 -> {
                     novoPokemon.setTipo("Fogo");
                     rodarTipo = false;
-                    break;
-                case 3:
+                }
+                case 3 -> {
                     novoPokemon.setTipo("Água");
                     rodarTipo = false;
-                    break;
-                case 4:
+                }
+                case 4 -> {
                     novoPokemon.setTipo("Elétrico");
                     rodarTipo = false;
-                    break;
-                case 5:
+                }
+                case 5 -> {
                     novoPokemon.setTipo("Grama");
                     rodarTipo = false;
-                    break;
-                case 6:
+                }
+                case 6 -> {
                     novoPokemon.setTipo("Gelo");
                     rodarTipo = false;
-                    break;
-                case 7:
+                }
+                case 7 -> {
                     novoPokemon.setTipo("Lutador");
                     rodarTipo = false;
-                    break;
-                default:
-                    System.out.println("Tipo inválido! Por favor, tente novamente: ");
+                }
+                default -> System.out.println("Tipo inválido! Por favor, tente novamente: ");
             }
         }
         cadastrosPokemons.adiconarPokemonsArray(novoPokemon);
         rodarTipo = true;
+    }
+
+    public void iniciarCriacao(Pokemon novoPokemon, GeraDadosPokemon gerarDados) {
+
+        gerarDados.geraRaridade(novoPokemon);
+        gerarDados.geraVatangemDesvantagem(novoPokemon);
+
+        System.out.println("\nO Pokémon " + novoPokemon.getNome() + " foi cadastrado com sucesso!\n");
     }
 }

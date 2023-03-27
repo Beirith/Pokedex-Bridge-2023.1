@@ -10,8 +10,8 @@ public class Pokemon {
     private String nome;
     private String tipo;
     private int raridade;
-    private String vantagem;
-    private String desvantagem;
+    private String[] vantagem;
+    private String[] desvantagem;
 
     public void setNome(String nomeP) {
         nome = nomeP;
@@ -25,11 +25,11 @@ public class Pokemon {
         raridade = raridadeP;
     }
 
-    public void setVantagem(String vantagemP) {
+    public void setVantagem(String[] vantagemP) {
         vantagem = vantagemP;
     }
 
-    public void setDesvantagem(String desvantagemP) {
+    public void setDesvantagem(String[] desvantagemP) {
         desvantagem = desvantagemP;
     }
 
@@ -45,11 +45,11 @@ public class Pokemon {
         return raridade;
     }
 
-    public String getVantagem() {
+    public String[] getVantagem() {
         return vantagem;
     }
 
-    public String getDesvantagem() {
+    public String[] getDesvantagem() {
         return desvantagem;
     }
 
@@ -58,8 +58,27 @@ public class Pokemon {
         System.out.println("Nome: " + nome);
         System.out.println("Tipo: " + tipo);
         System.out.println("Raridade: " + raridade);
-        System.out.println("Vantagem: " + vantagem);
-        System.out.println("Desvantagem: " + desvantagem);
+        System.out.print("Vantagem: || ");
+
+        if (vantagem.length == 0) {
+            System.out.print("Nenhuma ||");
+        } else {
+            for (String vantagemI : vantagem) {
+                System.out.printf("%s || ", vantagemI);
+            }
+        }
+        System.out.print("\n");
+
+        System.out.print("Desvantagem: || ");
+        if (desvantagem.length == 0) {
+            System.out.print("Nenhuma ||");
+        } else {
+            for (String desvantagemI : desvantagem) {
+                System.out.printf("%s || ", desvantagemI);
+            }
+        }
+        System.out.print("\n");
+
         System.out.println("======================================\n");
     }
 }

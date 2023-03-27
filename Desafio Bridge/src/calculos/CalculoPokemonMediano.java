@@ -8,7 +8,8 @@ import java.util.Scanner;
 public class CalculoPokemonMediano {
 
     private ArrayList<Pokemon> listaPokemonsMedianos = new ArrayList<>();
-    private boolean empate = false;
+    private ArrayList<Pokemon> listaPokemonsMedianosPositiva = new ArrayList<>();
+    private ArrayList<Pokemon> listaPokemonsMedianosNegativa = new ArrayList<>();
     private boolean raridadeNegativa = false;
 
     public void calcularPokemonMaisMediano(Scanner scan, ArrayList<Pokemon> listaDePokemons) {
@@ -26,10 +27,8 @@ public class CalculoPokemonMediano {
 
             if (raridadeMediana < 0) {
                 raridadeMediana = Math.abs(pokemonMediano.getRaridade());
-                raridadeNegativa = true;
             } else {
                 raridadeMediana = pokemonMediano.getRaridade();
-                raridadeNegativa = false;
             }
 
             for (int i = 1; i < listaDePokemons.size(); i++) {
@@ -43,6 +42,7 @@ public class CalculoPokemonMediano {
                 if (raridadeLista < raridadeMediana) {
                     raridadeMediana = raridadeLista;
                     pokemonMediano = pokemonLista;
+                    repeticoes = 0;
                 } else if (raridadeLista == raridadeMediana) {
                     repeticoes++;
                 }
@@ -65,19 +65,31 @@ public class CalculoPokemonMediano {
         }
 
         for (int j = 0; j < listaPokemonsMedianos.size(); j++) {
-            Pokemon pokemonLista = listaDePokemons.get(j);
+            Pokemon pokemonLista = listaPokemonsMedianos.get(j);
 
-            if (pokemonLista.getRaridade() < 0) {
-                listaPokemonsMedianos.remove(pokemonLista);
+            if (pokemonLista.getRaridade() <= 0) {
+                listaPokemonsMedianosNegativa.add(pokemonLista);
+            }
+            else if (pokemonLista.getRaridade() > 0) {
+                listaPokemonsMedianosPositiva.add(pokemonLista);
             }
         }
-        retornaPokemonMediano(listaPokemonsMedianos);
+
+        retornaPokemonMediano();
     }
 
-    public void retornaPokemonMediano(ArrayList<Pokemon> listaPokemonsMedianos) {
-        for (int j = 0; j < listaPokemonsMedianos.size(); j++) {
-            Pokemon pokemonLista = listaPokemonsMedianos.get(j);
+    public void retornaPokemonMediano() {
+        if (listaPokemonsMedianosPositiva.size() != 0) {
+            for (Pokemon pokemonLista : listaPokemonsMedianosPositiva) {
                 pokemonLista.dadosPokemon();
             }
+            } else {
+            for (Pokemon pokemonLista : listaPokemonsMedianosNegativa) {
+                pokemonLista.dadosPokemon();
+            }
+            }
+        listaPokemonsMedianos.clear();
+        listaPokemonsMedianosNegativa.clear();
+        listaPokemonsMedianosPositiva.clear();
     }
 }
