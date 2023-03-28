@@ -3,7 +3,12 @@ package pokemon;
 import java.util.Objects;
 import java.util.Random;
 
+/* Esta é a classe GeraDadosPokemon. Ela é responsável gerar aleatoriamente
+*  o valor da raridade do Pokémon e também por atribuir as vantagens e desvantagens
+*  de cada Pokémon de acordo com seu respectivo tipo. */
+
 public class GeraDadosPokemon {
+    // As vantagens e desvantagens pré-definidas são os atributos do objeto.
     final String[] normalVantagem = {};
     final String[] normalDesvantagem = {};
 
@@ -25,13 +30,18 @@ public class GeraDadosPokemon {
     final String[] lutadorVantagem = {"Normal", "Gelo"};
     final String[] lutadorDesvantagem = {};
 
+    // Método que gera aleatoriamente um valor de raridade entre -100 e 100 e atribui-o ao Pokémon.
     public void geraRaridade(Pokemon pokemon) {
-        Random raridadeAleatoria = new Random();
-        int raridade = raridadeAleatoria.nextInt(201) - 100;
-        pokemon.setRaridade(raridade);
+        Random raridadeAleatoria = new Random();                            // Cria um objeto da classe Random.
+        int raridade = raridadeAleatoria.nextInt(201) - 100;         // Calcula um valor aleatório entre -100 e 100 e atribui a variável raridade.
+        pokemon.setRaridade(raridade);                                     // Seta a raridade ao Pokémon.
     }
 
+    // Método que atribui as vantagens e desvantagens de cada Pokémon.
     public void geraVatangemDesvantagem(Pokemon pokemon) {
+        // Verifica qual o tipo do Pokémon e atribui os respectivos valores
+        // de vantagem e desvantagem ao Pokémon.
+
         if (Objects.equals(pokemon.getTipo(), "Normal")) {
             pokemon.setVantagem(normalVantagem);
             pokemon.setDesvantagem(normalDesvantagem);

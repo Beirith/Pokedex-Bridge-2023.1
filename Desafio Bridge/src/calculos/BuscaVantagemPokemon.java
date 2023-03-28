@@ -1,5 +1,6 @@
 package calculos;
 
+import pokemon.CadastroPokemon;
 import pokemon.Pokemon;
 
 import java.util.ArrayList;
@@ -85,6 +86,3 @@ public class BuscaVantagemPokemon {
         }
     }
 }
-
-
-
